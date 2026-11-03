@@ -1,0 +1,27 @@
+# Compilation intermediates
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.toc
+*.lof
+*.lot
+*.xdv
+*.synctex.gz
+*.synctex(busy)
+/main.pdf
+/example.pdf
+/build/
+__pycache__/
+.DS_Store
+Thumbs.db
+# Private images and temporary authoring materials
+/private/*
+!/private/README.md
+**/author_signature.*
+**/mentor_signature.*

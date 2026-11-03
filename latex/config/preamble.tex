@@ -1,0 +1,96 @@
+\usepackage{graphicx} % 用于插入图片
+\usepackage{setspace} % 用于设置行距
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage[absolute, overlay]{textpos}
+\usepackage{tcolorbox} % 用于创建带边框的盒子
+\usepackage{fancyhdr}
+\tcbuselibrary{skins} % 加载 skins 库以获得更多样式选项
+
+\usepackage[
+  style=gb7714-2015ay,
+  backend=biber,
+  maxcitenames=2,                 % cite 时最多列 2 名作者；超过即用 et al
+  mincitenames=1,                 % et al 时只保留第 1 名作者
+  maxbibnames=20,                 % 参考文献列表最多列 20 名作者
+  minbibnames=20,
+  gbnamefmt=lowercase,            % 提交稿：Goodfellow I，而非全大写姓氏
+  gbfieldtype=false,             % 提交稿常见著录不带[M]/[J]标识
+  gbpub=false,
+  sortcites=false,                % cite 内部不自动排序（在源码里按年代写）
+  sorting=gb7714-2015             % 参考文献列表：中文在前外文在后、按姓氏
+]{biblatex}
+\DeclareDelimFormat[cite,parencite,pagescite,citep]{nameyeardelim}{\addspace}
+\DeclareDelimFormat[cite,parencite,textcite]{finalnamedelim}{%
+  \iffieldequalstr{langid}{chinese}{和}{\addspace and\addspace}}
+% 规范§7.5+§8.1要求：et al 后不加英文点（参考文献列表和正文引用都一致）
+% gb7714-2015ay 风格 cite 内部用 andothersincite，列表内部用 andothers
+\DefineBibliographyStrings{english}{%
+  andothers       = {et al},%
+  andothersincite = {et al},%
+}
+% 规范要求 2 名作者用 "Smith and Jones 1992" 形式（用 and，不用逗号）
+% 注意：gb7714-2015ay 风格里参考文献列表用顿号/逗号是规范的，
+% 但 cite 时按"姓名加年份"规则需要 and。
+\renewcommand*{\multinamedelim}{\addcomma\space}
+\renewcommand*{\finalnamedelim}{\addspace and\addspace}
+\AtBeginBibliography{%
+  \renewcommand*{\multinamedelim}{\addcomma\space}%
+  \renewcommand*{\finalnamedelim}{\addcomma\space}%
+}
+
+% 多篇文献之间用逗号，而不是分号
+\DeclareDelimFormat{multicitedelim}{\addcomma\space}
+\DeclareDelimFormat{compcitedelim}{\addcomma\space}
+\DeclareFieldFormat[article,inproceedings,incollection,unpublished]{title}{#1}
+\addbibresource{\thesisBibFile}  % 替换为你的 .bib 文件名
+\input{config/bibliography}
+
+% 给参考文献列表加顺序编号（规范例子里"1.姜锡州..." "2.蓝盛银..."这种"序号."风格）
+% 因为 gb7714-2015ay 风格不设置 labelnumber 字段，所以用计数器方式自增
+\newcounter{bibrefcnt}
+\defbibenvironment{bibliography}
+  {\setcounter{bibrefcnt}{0}%
+   \list{\stepcounter{bibrefcnt}\arabic{bibrefcnt}.}%
+        {\setlength{\labelwidth}{2.2em}%
+         \setlength{\leftmargin}{\labelwidth}%
+         \setlength{\labelsep}{0.5em}%
+         \addtolength{\leftmargin}{\labelsep}%
+         \setlength{\itemsep}{0.4ex plus 0.2ex}%
+         \setlength{\parsep}{0pt}%
+         \renewcommand*{\makelabel}[1]{##1\hss}}}%
+  {\endlist}%
+  {\item}
+
+% 自定义参考文献标题格式（居中+目录）
+\defbibheading{bibliography}[参考文献]{%
+  \clearpage\phantomsection
+  \addcontentsline{toc}{section}{参考文献}%
+  \vspace*{-10pt}%
+  \noindent\makebox[\textwidth][c]{\heiti\zihao{3}参\hspace{1em}考\hspace{1em}文\hspace{1em}献}\par%
+  \vspace{8pt}%
+}
+
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{hzaugreen}{HTML}{67b356} 
+
+%%%%%%%%%%%%%%%%
+\usepackage{bicaption} % 支持双标题
+% 设置中英文标题分隔符（默认为换行）
+\DeclareCaptionOption{separator}{\def\captionseparator{#1}}
+\captionsetup[bi-first]{name=图} % 中文"图"代替"Figure"
+\captionsetup[bi-second]{name=Figure}
+% 设置表格中英文标题格式
+\captionsetup[table][bi-first]{name=表} % 中文"表"代替"Table"
+\captionsetup[table][bi-second]{name=Table}
+% 设置 longtable 中英文标题格式
+\captionsetup[longtable][bi-first]{name=表}
+\captionsetup[longtable][bi-second]{name=Table}
+
+
+
+% The bibliography path is set by the entry file before this file is loaded.
+% Replace the earlier resource declaration with the selected path.

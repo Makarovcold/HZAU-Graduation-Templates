@@ -1,0 +1,22 @@
+% !TeX root = ../main.tex
+\section{材料与方法}\label{sec:methods}
+\subsection{研究材料与实验设计}
+交代数据来源、实验条件、设备、软件版本和评价指标。涉及他人数据或方法时注明来源。
+\subsection{数学公式}
+式\eqref{eq:objective}给出一个用于排版演示的经验风险最小化目标：
+\begin{equation}
+  \min_{\boldsymbol{\theta}}\;\mathcal{L}(\boldsymbol{\theta})
+  =\frac{1}{N}\sum_{i=1}^{N}\ell\bigl(f_{\boldsymbol{\theta}}(x_i),y_i\bigr).
+  \label{eq:objective}
+\end{equation}
+其中，$N$ 为样本数，$\boldsymbol{\theta}$ 为模型参数，$\ell$ 为损失函数。符号应在首次出现时解释。
+\subsection{伪代码}
+\begin{algorithm}[htbp]
+\caption{梯度下降流程示例}\label{alg:demo}
+\KwIn{初始参数 $\theta_0$，学习率 $\eta$，迭代次数 $T$}
+\KwOut{参数 $\theta_T$}
+\For{$t=0,1,\ldots,T-1$}{
+  $g_t\leftarrow\nabla\mathcal{L}(\theta_t)$\;
+  $\theta_{t+1}\leftarrow\theta_t-\eta g_t$\;
+}
+\end{algorithm}

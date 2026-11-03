@@ -1,0 +1,23 @@
+% !TeX program = xelatex
+% !BIB program = biber
+% The submitted samples use SimSun/SimHei and Times New Roman on Windows.
+% Add portablefonts for Fandol + TeX Gyre Termes on other platforms.
+\documentclass[UTF8,twoside,AutoFakeBold=1,AutoFakeSlant,zihao=-4]{HZAU}
+\newcommand{\thesisBibFile}{references.bib}
+\newcommand{\thesisAbstractFile}{frontmatter/abstracts.tex}
+\input{config/preamble}
+\input{config/metadata}
+\input{config/layout}
+\begin{document}
+\thesisFrontMatter
+\input{chapters/chapter1}
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+\input{chapters/chapter5}
+\printbibliography[heading=bibliography]
+\input{chapters/appendix}
+\begin{acknowledgement}
+请用自己的语言感谢在研究、实验和论文写作中提供帮助的老师、同学与家人。
+\end{acknowledgement}
+\end{document}

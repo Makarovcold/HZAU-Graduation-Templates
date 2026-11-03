@@ -1,0 +1,68 @@
+% !TeX root = ../main.tex
+\appendix
+\section{代码与跨页表格示例}
+\subsection{代码清单}
+\begin{lstlisting}[language=Python,caption={Mean calculation example}]
+def mean(values):
+    if not values:
+        raise ValueError("values must not be empty")
+    return sum(values) / len(values)
+\end{lstlisting}
+\subsection{跨页三线表}
+下表的所有内容仅用于展示续表表头。
+\begin{longtable}{cll}
+  \bicaption{排版演示参数表}{Parameters for typesetting demonstration}\label{tab:long}\\
+  \toprule
+  序号/No. & 参数/Parameter & 示例/Example \\
+  \midrule
+  \endfirsthead
+  \longtablecontinued{3}
+  \toprule
+  序号/No. & 参数/Parameter & 示例/Example \\
+  \midrule
+  \endhead
+  \midrule\multicolumn{3}{r}{续下页 / Continued on next page}\\
+  \endfoot
+  \bottomrule
+  \endlastfoot
+01 & Parameter 01 & 示范值 01 \\
+02 & Parameter 02 & 示范值 02 \\
+03 & Parameter 03 & 示范值 03 \\
+04 & Parameter 04 & 示范值 04 \\
+05 & Parameter 05 & 示范值 05 \\
+06 & Parameter 06 & 示范值 06 \\
+07 & Parameter 07 & 示范值 07 \\
+08 & Parameter 08 & 示范值 08 \\
+09 & Parameter 09 & 示范值 09 \\
+10 & Parameter 10 & 示范值 10 \\
+11 & Parameter 11 & 示范值 11 \\
+12 & Parameter 12 & 示范值 12 \\
+13 & Parameter 13 & 示范值 13 \\
+14 & Parameter 14 & 示范值 14 \\
+15 & Parameter 15 & 示范值 15 \\
+16 & Parameter 16 & 示范值 16 \\
+17 & Parameter 17 & 示范值 17 \\
+18 & Parameter 18 & 示范值 18 \\
+19 & Parameter 19 & 示范值 19 \\
+20 & Parameter 20 & 示范值 20 \\
+21 & Parameter 21 & 示范值 21 \\
+22 & Parameter 22 & 示范值 22 \\
+23 & Parameter 23 & 示范值 23 \\
+24 & Parameter 24 & 示范值 24 \\
+25 & Parameter 25 & 示范值 25 \\
+26 & Parameter 26 & 示范值 26 \\
+27 & Parameter 27 & 示范值 27 \\
+28 & Parameter 28 & 示范值 28 \\
+29 & Parameter 29 & 示范值 29 \\
+30 & Parameter 30 & 示范值 30 \\
+31 & Parameter 31 & 示范值 31 \\
+32 & Parameter 32 & 示范值 32 \\
+33 & Parameter 33 & 示范值 33 \\
+34 & Parameter 34 & 示范值 34 \\
+35 & Parameter 35 & 示范值 35 \\
+36 & Parameter 36 & 示范值 36 \\
+37 & Parameter 37 & 示范值 37 \\
+38 & Parameter 38 & 示范值 38 \\
+39 & Parameter 39 & 示范值 39 \\
+40 & Parameter 40 & 示范值 40 \\
+\end{longtable}

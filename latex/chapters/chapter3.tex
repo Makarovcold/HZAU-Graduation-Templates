@@ -1,0 +1,32 @@
+% !TeX root = ../main.tex
+\section{结果与分析}\label{sec:results}
+\subsection{双语图题}
+图\ref{fig:demo}由 LaTeX 直接绘制，无需额外图片或脚本。换成自己的图片时，使用如下命令，并将路径改为实际文件：
+\begin{lstlisting}[language=TeX]
+\includegraphics[width=0.85\linewidth]{Fig/filename.pdf}
+\end{lstlisting}
+\begin{figure}[htbp]
+  \centering
+  \setlength{\fboxsep}{12pt}
+  \fbox{\begin{minipage}{0.82\linewidth}\centering
+    研究问题 $\longrightarrow$ 实验设计 $\longrightarrow$ 数据分析 $\longrightarrow$ 研究结论
+  \end{minipage}}
+  \bicaption{研究流程排版示例}{Example of a research workflow}
+  \label{fig:demo}
+\end{figure}
+\subsection{三线表}
+表\ref{tab:demo}中的数值为虚构排版数据，正式论文应替换为可追溯的实验记录。
+\begin{table}[htbp]
+  \centering
+  \bicaption{虚构的排版演示数据}{Fictitious data for typesetting only}
+  \label{tab:demo}
+  \begin{tabular}{lrr}
+    \toprule
+    \makecell{方法\\Method} & \makecell{准确率/\%\\Accuracy/\%} & \makecell{耗时/s\\Time/s} \\
+    \midrule
+    A & 80.12 & 100.00 \\
+    B & 81.34 & 120.00 \\
+    \bottomrule
+  \end{tabular}
+  \par\tablesource{注：全部数值仅用于展示排版。Note: all values are illustrative.}
+\end{table}

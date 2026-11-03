@@ -1,0 +1,32 @@
+% Shared document structure; each entry provides abstract and content paths.
+\pdfstringdefDisableCommands{\def\quad{ }\def\qquad{ }}
+% Start a new numbering sequence on an actual recto in duplex printing.
+\newcommand{\thesisRectoPage}{%
+  \clearpage
+  \ifodd\value{page}\else\thispagestyle{empty}\null\clearpage\fi
+}
+\newcommand{\thesisBlankPage}{\clearpage\thispagestyle{empty}\null\clearpage}
+\newcommand{\thesisHeaders}{%
+  \pagestyle{fancy}\fancyhf{}
+  \fancyhead[CO]{\songti\fontsize{10.5pt}{12pt}\selectfont\thesisTitleC}
+  \fancyhead[CE]{\songti\fontsize{10.5pt}{12pt}\selectfont 华中农业大学\gradYearNum{}届学士学位（毕业）论文}
+  \fancyfoot[C]{\fontsize{9pt}{11pt}\selectfont\thepage}
+  \renewcommand{\headrulewidth}{1pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\newcommand{\thesisFrontMatter}{%
+  \raggedbottom
+  \emergencystretch=2em
+  \hypersetup{pdftitle={\thesisTitleC},pdfauthor={\yourName},pdfsubject={本科毕业论文排版示例}}
+  % Front covers and declaration have blank versos for duplex printing.
+  \hypersetup{pageanchor=false}
+  \coverpage\thesisBlankPage
+  \whitecoverpage\thesisBlankPage
+  \begin{authorization}\end{authorization}\thesisBlankPage
+  \hypersetup{pageanchor=true}
+  \thesisHeaders\contentpage
+  \thesisRectoPage
+  \input{\thesisAbstractFile}
+  \thesisRectoPage\thesisHeaders\pagenumbering{arabic}
+  \setlength{\parskip}{0pt}\setlength{\parindent}{2\ccwd}
+}

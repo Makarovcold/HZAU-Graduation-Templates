@@ -1,0 +1,34 @@
+name: Build thesis template
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install TeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends latexmk biber texlive-xetex texlive-lang-chinese texlive-latex-extra texlive-science texlive-bibtex-extra texlive-fonts-recommended fonts-texgyre
+      - name: Check resources and build thesis
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          entry = Path('latex/main.tex')
+          entry.write_text(entry.read_text(encoding='utf-8').replace(r'\documentclass[', r'\documentclass[portablefonts,', 1), encoding='utf-8')
+          PY
+          python3 scripts/check_project.py
+          python3 scripts/build_all.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: thesis-template-pdf
+          path: latex/main.pdf
+          if-no-files-found: error

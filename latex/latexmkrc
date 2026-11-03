@@ -1,0 +1,5 @@
+# XeLaTeX produces XDV, then xdvipdfmx produces PDF. Biber is auto-detected.
+$pdf_mode = 5;
+$xelatex = 'xelatex -no-pdf -synctex=1 -interaction=nonstopmode -halt-on-error -file-line-error %O %S';
+$max_repeat = 6;
+$bibtex_use = 2;

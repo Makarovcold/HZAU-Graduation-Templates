@@ -1,0 +1,75 @@
+% Automatic common entry formats modelled on both submitted thesis reference lists.
+% Less common types keep the package's fallback format and need individual review.
+\DeclareFieldFormat{title}{#1}
+\DeclareFieldFormat[book,article,inproceedings,incollection,inbook,thesis,report,online]{title}{#1}
+\DeclareFieldFormat{booktitle}{#1}
+\DeclareFieldFormat{journaltitle}{\mkbibemph{#1}}
+\DeclareFieldFormat{pages}{#1}
+\DeclareFieldFormat{url}{\url{#1}}
+\DeclareFieldFormat{doi}{\url{https://doi.org/#1}}
+\newcommand*{\hzauBibPeriod}{\iffieldequalstr{langid}{chinese}{\unspace．}{\addperiod\space}}
+\newcommand*{\hzauBibComma}{\iffieldequalstr{langid}{chinese}{\unspace，}{\addcomma\space}}
+\newcommand*{\hzauBibColon}{\iffieldequalstr{langid}{chinese}{\unspace：}{\addcolon\space}}
+\newbibmacro*{hzau:year}{\printfield{year}\printfield{extradate}}
+\newbibmacro*{hzau:author-title}{%
+  \usebibmacro{bibindex}\usebibmacro{begentry}%
+  \ifnameundef{author}{\printnames{editor}}{\printnames{author}}%
+  \setunit{\hzauBibPeriod}\printfield{title}}
+\newbibmacro*{hzau:links}{%
+  \iffieldundef{doi}{%
+    \iffieldundef{url}{}{\setunit{\addperiod\space}\printfield{url}}%
+  }{\setunit{\addperiod\space}\printfield{doi}}}
+\AtBeginBibliography{\renewcommand*{\finentrypunct}{}}
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{hzau:author-title}%
+  \iffieldundef{edition}{}{\setunit{\hzauBibPeriod}\printfield{edition}}%
+  \setunit{\hzauBibPeriod}\printlist{location}%
+  \setunit*{\hzauBibColon}\printlist{publisher}%
+  \setunit{\hzauBibComma}\usebibmacro{hzau:year}%
+  \iffieldundef{pages}{}{\setunit{\hzauBibPeriod}\printfield{pages}}%
+  \usebibmacro{hzau:links}\usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{hzau:author-title}%
+  \setunit{\hzauBibPeriod}\printfield{journaltitle}%
+  \setunit{\hzauBibComma}\usebibmacro{hzau:year}%
+  \iffieldundef{volume}{}{\setunit{\hzauBibComma}\printfield{volume}}%
+  \iffieldundef{number}{}{\printtext{(\printfield{number})}}%
+  \iffieldundef{pages}{}{\setunit{\hzauBibColon}\printfield{pages}}%
+  \usebibmacro{hzau:links}\usebibmacro{finentry}}
+
+\DeclareBibliographyAlias{inproceedings}{hzau-proceedings}
+\DeclareBibliographyDriver{hzau-proceedings}{%
+  \usebibmacro{hzau:author-title}%
+  \setunit{\hzauBibPeriod}\printfield{booktitle}%
+  \setunit{\hzauBibComma}\usebibmacro{hzau:year}%
+  \iflistundef{location}{}{\setunit{\hzauBibComma}\printlist{location}}%
+  \iffieldundef{pages}{}{\setunit{\hzauBibComma}\printfield{pages}}%
+  \usebibmacro{hzau:links}\usebibmacro{finentry}}
+
+\DeclareBibliographyAlias{incollection}{hzau-collection}
+\DeclareBibliographyDriver{hzau-collection}{%
+  \usebibmacro{hzau:author-title}%
+  \setunit{\hzauBibPeriod}\printtext{\iffieldequalstr{langid}{chinese}{见：}{In:\space}}%
+  \ifnameundef{editor}{}{\printnames{editor}\setunit{\addcomma\space}}%
+  \printfield{booktitle}%
+  \setunit{\hzauBibPeriod}\printlist{location}%
+  \setunit*{\hzauBibColon}\printlist{publisher}%
+  \setunit{\hzauBibComma}\usebibmacro{hzau:year}%
+  \iffieldundef{pages}{}{\setunit{\hzauBibPeriod}\printfield{pages}}%
+  \usebibmacro{hzau:links}\usebibmacro{finentry}}
+
+\DeclareBibliographyAlias{thesis}{hzau-thesis}
+\DeclareBibliographyDriver{hzau-thesis}{%
+  \usebibmacro{hzau:author-title}%
+  \setunit{\hzauBibPeriod}\printfield{type}%
+  \setunit{\hzauBibPeriod}\printlist{location}%
+  \setunit*{\hzauBibColon}\printlist{institution}%
+  \setunit{\hzauBibComma}\usebibmacro{hzau:year}%
+  \usebibmacro{hzau:links}\usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{hzau:author-title}%
+  \setunit{\hzauBibPeriod}\usebibmacro{hzau:year}%
+  \usebibmacro{hzau:links}\usebibmacro{finentry}}
